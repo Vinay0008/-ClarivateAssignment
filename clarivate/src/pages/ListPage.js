@@ -7,19 +7,27 @@ import "./ListPage.scss";
 const ListPage = ({ favorites, setFavorites }) => {
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
   const containerRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
+        setError(null);
         const response = await axios.get(
           `https://jsonplaceholder.typicode.com/albums/1/photos?_page=${page}&_limit=10`
         );
         setItems((prevItems) => [...prevItems, ...response.data]);
         if (response.data.length < 10) setHasMore(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        setError(
+          "Failed to load data. Please check your network and try again."
+        );
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -55,6 +63,7 @@ const ListPage = ({ favorites, setFavorites }) => {
         <button className="back-button">Back to Dashboard</button>
       </Link>
       <div style={{ margin: "20vh" }}>
+        {error && <div className="error-message">{error}</div>}
         {items.map((item) => (
           <ItemCard
             key={item.id}
@@ -63,6 +72,13 @@ const ListPage = ({ favorites, setFavorites }) => {
             onFavoriteToggle={handleFavoriteToggle}
           />
         ))}
+
+        {loading && (
+          <div className="loader">
+            <div className="spinner"></div>
+            <p>Loading more items...</p>
+          </div>
+        )}
       </div>
     </div>
   );
