@@ -1,19 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
+import "./ItemCard.scss";
 
-const ItemCard = ({ item }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
-
+const ItemCard = ({ item, isFavorite, onFavoriteToggle }) => {
   return (
     <div className="item-card">
-      <img src={item.thumbnailUrl} alt={item.title} width={100} />
+      <img src={item.thumbnailUrl} alt={item.title} />
       <div>
         <h3>{item.id}</h3>
         <h3>{item.title}</h3>
-        <button className="button" onClick={toggleFavorite}>
+        <button
+          className={`favorite-button ${isFavorite ? "added" : "not-added"}`}
+          onClick={() => onFavoriteToggle(item)}
+        >
           {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
         </button>
       </div>

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ItemCard from "../components/ItemCard";
+import "./ListPage.scss";
 
-const ListPage = () => {
+const ListPage = ({ favorites, setFavorites }) => {
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,25 +26,42 @@ const ListPage = () => {
     fetchData();
   }, [page]);
 
-  const handleScroll = (event) => {
-    const { scrollTop, clientHeight, scrollHeight } = event.target;
-    if (scrollHeight - scrollTop === clientHeight && hasMore) {
-      setPage((prevPage) => prevPage + 1);
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, clientHeight, scrollHeight } = containerRef.current;
+      if (scrollHeight - scrollTop === clientHeight && hasMore) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    };
+
+    const ref = containerRef.current;
+    ref.addEventListener("scroll", handleScroll);
+    return () => ref.removeEventListener("scroll", handleScroll);
+  }, [hasMore]);
+
+  const handleFavoriteToggle = (item) => {
+    const isFavorite = favorites.some((fav) => fav.id === item.id);
+    if (isFavorite) {
+      setFavorites(favorites.filter((fav) => fav.id !== item.id));
+    } else {
+      setFavorites([...favorites, item]);
     }
   };
 
   return (
-    <div
-      onScroll={handleScroll}
-      style={{ height: "100vh", overflowY: "scroll" }}
-    >
+    <div ref={containerRef} style={{ height: "100vh", overflowY: "scroll" }}>
       <h1>List</h1>
       <Link to="/">
-        <button className="button">Back to Dashboard</button>
+        <button className="back-button">Back to Dashboard</button>
       </Link>
-      <div>
+      <div style={{ margin: "20vh" }}>
         {items.map((item) => (
-          <ItemCard key={item.id} item={item} />
+          <ItemCard
+            key={item.id}
+            item={item}
+            isFavorite={favorites.some((fav) => fav.id === item.id)}
+            onFavoriteToggle={handleFavoriteToggle}
+          />
         ))}
       </div>
     </div>

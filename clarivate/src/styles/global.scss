@@ -1,0 +1,42 @@
+
+@import './variables';
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #d7bfdb, #ffffff);
+  color: $text-color;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: $primary-color;
+  transition: color 0.3s;
+
+  &:hover {
+    color: lighten($primary-color, 10%);
+  }
+}
+
+button {
+  background: linear-gradient(135deg, $primary-color, darken($primary-color, 10%));
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background: linear-gradient(135deg, darken($primary-color, 15%), darken($primary-color, 10%));
+    transform: translateY(-3px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+  }
+}

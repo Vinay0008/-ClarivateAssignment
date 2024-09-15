@@ -1,0 +1,60 @@
+.item-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    
+  
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+  
+    img {
+      border-radius: 12px;
+      margin-right: 20px;
+      transition: transform 0.3s;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  
+    div {
+      flex: 1;
+  
+      h3 {
+        font-size: 1.25rem;
+        margin: 0 0 10px;
+      }
+  
+      .favorite-button {
+        padding: 8px 16px;
+        border-radius: 6px;
+        transition: background 0.3s, transform 0.3s;
+        margin-top: 10px;
+        border: none;
+        cursor: pointer;
+  
+        &.added {
+          background: #ff6f61; 
+          color: #fff;
+        }
+  
+        &.not-added {
+          background: #007bff; 
+          color: #fff;
+        }
+  
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+  

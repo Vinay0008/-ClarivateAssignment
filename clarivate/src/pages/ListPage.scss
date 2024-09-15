@@ -1,0 +1,21 @@
+
+@import '../styles/global';
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #004d40; 
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 1s ease-out;
+ 
+  text-align: center;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+}
+
+
+
+
