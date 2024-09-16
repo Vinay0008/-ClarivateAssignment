@@ -45,5 +45,4 @@ Builds the app for production, optimizing it for the best performance.
 ### `npm run test` or `yarn test`
 Launches the test runner in interactive watch mode.
 
-### `npm run lint` or `yarn lint`
-Lints the project to identify and fix issues with code style and quality.
+
